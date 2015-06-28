@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Data.Json;
-using Windows.Storage;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Data.Entity;
 
 // Le modèle de données défini par ce fichier sert d'exemple représentatif d'un modèle fortement typé
 // modèle.  Les noms de propriétés choisis correspondent aux liaisons de données dans les modèles d'élément standard.
@@ -59,42 +58,26 @@ namespace OnMyWay.Data
 
     public sealed class DataSource
     {
-        private static DataSource _sampleDataSource = new DataSource();
-
-        private ObservableCollection<Table> _groups = new ObservableCollection<Table>();
-        public ObservableCollection<Table> Groups
-        {
-            get { return this._groups; }
-        }
+        static OnmyWayDB db = new OnmyWayDB();
 
         public static async Task<IEnumerable<Table>> GetGroupsAsync()
         {
-            await _sampleDataSource.GetSampleDataAsync();
-
-            return _sampleDataSource.Groups;
+            return db.Table;
         }
 
         public static async Task<Table> GetGroupAsync(string number)
         {
-            await _sampleDataSource.GetSampleDataAsync();
-            // Une simple recherche linéaire est acceptable pour les petits groupes de données
-            var matches = _sampleDataSource.Groups.Where((group) => group.number.Equals(number));
-            if (matches.Count() == 1) return matches.First();
-            return null;
+            return db.Table.Find(number);
         }
 
         public static async Task<Dish> GetItemAsync(string id)
         {
-            await _sampleDataSource.GetSampleDataAsync();
-            // Une simple recherche linéaire est acceptable pour les petits groupes de données
-            var matches = _sampleDataSource.Groups.SelectMany(group => group.Items).Where((item) => item.id.Equals(id));
-            if (matches.Count() == 1) return matches.First();
-            return null;
+            return db.Dish.Find(id);
         }
 
         private async Task GetSampleDataAsync()
         {
-            this.Groups.Add(group);
+            
         }
     }
 }
