@@ -12,5 +12,6 @@ namespace OnMyWay
     {
         public DbSet<Dish> Dish { get; set; }
         public DbSet<Table> Table { get; set; }
+        public DbSet<Waiter> Waiter { get; set; }
     }
 }

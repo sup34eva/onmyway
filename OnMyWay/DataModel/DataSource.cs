@@ -23,11 +23,11 @@ namespace OnMyWay.Data
 
     public class Dish
     {
-        public int id;
-        public string name;
-        public int price;
+        public int id { get; set; }
+        public string name { get; set; }
+        public int price { get; set; }
 
-        public Dish(int id, string name, int price)
+        public Dish(string name, int price)
         {
             this.id = id;
             this.name = name;
@@ -38,7 +38,7 @@ namespace OnMyWay.Data
 
     public class Table
     {
-        public Table(int number, int places, int posX, int posY)
+        public Table(int places, int posX, int posY)
         {
             this.Items = new ObservableCollection<Dish>();
 
@@ -50,10 +50,10 @@ namespace OnMyWay.Data
 
         public ObservableCollection<Dish> Items { get; private set; }
 
-        public int number { get; private set; }
-        public int places { get; private set; }//occupées
-        public int posX { get; private set; }
-        public int posY { get; private set; }
+        public int number { get; set; }
+        public int places { get; set; }//places occupées
+        public int posX { get; set; }
+        public int posY { get; set; }
     }
 
     public sealed class DataSource
